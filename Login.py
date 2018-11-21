@@ -20,7 +20,14 @@ def login():
 
 
 def signup():
-    name = input("Please enter your login name: ")
+    name = ""
+    exist_name = True
+    while exist_name:
+        name = input("Please enter your login name: ")
+        exist_name = username_existence(name)
+        if exist_name:
+            print("Username exist already, please try something different!")
+
     passwd = ""
 
     valid_passwd = False
