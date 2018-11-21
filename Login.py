@@ -4,19 +4,21 @@ from DatabaseConnection import Database
 
 
 def login():
-    username = input("Please enter your login name: ")
-    existence = username_existence(username)
-    if not existence:
-        print("User name doesn't exist!")
-    else:
-        user_id = database.find_user_id(username)
-        password = input("Please enter your password: ")
-        match = database.match_password(password, user_id)
-        if not match:
-            print("Wrong password!")
-            return False
+    while True:
+        username = input("Please enter your login name: ")
+        existence = username_existence(username)
+        if not existence:
+            print("User doesn't exist!")
         else:
-            return True
+            user_id = database.find_user_id(username)
+            password = input("Please enter your password: ")
+            match = database.match_password(password, user_id)
+            if not match:
+                print("Wrong password!")
+                return False
+            else:
+                print("Login successfully")
+                return True
 
 
 def signup():

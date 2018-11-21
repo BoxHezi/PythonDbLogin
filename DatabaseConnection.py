@@ -38,14 +38,12 @@ class Database:
         self.database.commit()
 
     def generate_id(self, table_name):
-        sql_query = "SELECT * FROM %s ORDER BY id DESC"
+        sql_query = "SELECT id FROM %s ORDER BY id DESC LIMIT 1;"
         cursor = self.cursor
         cursor.execute(sql_query % table_name)
+
         id_list = cursor.fetchall()
-        if len(id_list) == 0:
-            next_id = 1
-        else:
-            next_id = id_list[0] + 1
+        next_id = id_list[0][0] + 1
 
         return next_id
 
@@ -59,7 +57,8 @@ class Database:
         for i in range(len(name_list)):
             if name == name_list[i][0]:
                 return True
-            return False
+
+        return False
 
     def find_user_id(self, name):
         cursor = self.cursor
