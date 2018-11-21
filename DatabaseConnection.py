@@ -51,7 +51,7 @@ class Database:
 
     def search_username(self, name):
         cursor = self.cursor
-        search_query = "SELECT name FROM username"
+        search_query = "SELECT name FROM username;"
         cursor.execute(search_query)
 
         name_list = cursor.fetchall()
@@ -63,8 +63,8 @@ class Database:
 
     def find_user_id(self, name):
         cursor = self.cursor
-        search_query = "SELECT id FROM username"
-        cursor.execute(search_query)
+        search_query = "SELECT `id` FROM `username` WHERE `name` = '%s';"
+        cursor.execute(search_query % name)
 
         user_id = cursor.fetchone()[0]
 
@@ -72,10 +72,11 @@ class Database:
 
     def match_password(self, entered, user_id):
         cursor = self.cursor
-        search_query = "SELECT password FROM password where user_id = %s"
+        search_query = "SELECT `password` FROM `password` WHERE `user_id` = '%s';"
         cursor.execute(search_query % user_id)
 
         password = cursor.fetchone()[0]
+
         if password == entered:
             return True
         else:
