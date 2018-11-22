@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import mysql.connector
+import Hash
 
 
 class Database:
@@ -30,7 +31,7 @@ class Database:
         cursor = self.cursor
 
         user_tuple = (user_id, name)
-        password_tuple = (passwd_id, password, user_id)
+        password_tuple = (passwd_id, Hash.encrypt(password), user_id)
 
         cursor.execute(username_query, user_tuple)
         cursor.execute(password_query, password_tuple)
@@ -76,7 +77,7 @@ class Database:
 
         password = cursor.fetchone()[0]
 
-        if password == entered:
+        if password == Hash.encrypt(entered):
             return True
         else:
             return False
