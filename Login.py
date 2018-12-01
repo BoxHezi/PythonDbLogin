@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from DatabaseConnection import Database
+import getpass
 
 
 def login():
@@ -11,7 +12,7 @@ def login():
             print("User doesn't exist!")
         else:
             user_id = database.find_user_id(username)
-            password = input("Please enter your password: ")
+            password = getpass.getpass("Please enter your password: ")
             match = database.match_password(password, user_id)
             if not match:
                 print("Wrong password!")
@@ -34,13 +35,14 @@ def signup():
 
     valid_passwd = False
     while not valid_passwd:
-        passwd = input("Please enter your password: ")
-        confirm_passwd = input("Please enter your password again: ")
+        passwd = getpass.getpass("Please enter your password: ")
+        confirm_passwd = getpass.getpass("Please enter your password again: ")
         valid_passwd = password_validation(passwd, confirm_passwd)
         if not valid_passwd:
             print("Two password don't match!")
 
     database.signup(name, passwd)
+    print("Sign up successfully")
 
 
 def username_existence(name):
