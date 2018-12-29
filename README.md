@@ -10,3 +10,4 @@ python login/signup functionality interact with MySQL database
 * Extra packages Needed:
     * mysql
     * mysql.connector
+      * Run the following command to install mysql-connector: `sudo pip install mysql-connector`
