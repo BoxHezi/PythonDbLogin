@@ -2,20 +2,28 @@
 
 import mysql.connector
 import Hash
+import sys
 
 
 class Database:
     def __init__(self):
-        self.database = mysql.connector.connect(
-            host="localhost",
-            user="boxhezi",
-            passwd="password",
-            database="test"
-        )
-        self.cursor = self.database.cursor()
+        try:
+            self.database = mysql.connector.connect(
+                host="localhost",
+                user="boxhezi",
+                passwd="password",
+                database="test"
+            )
+            self.cursor = self.database.cursor()
+        except:
+            # print("Something is wrong when trying connect to database")
+            sys.exit("Something is wrong when trying connect to database\nTerminating...")
 
     def __del__(self):
-        self.database.close()
+        try:
+            self.database.close()
+        except:
+            print("")
 
     def get_current_db(self):
         cursor = self.cursor
